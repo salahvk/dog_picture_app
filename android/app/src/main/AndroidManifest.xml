@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dog_picture_app">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="dog_picture_app"
+        android:label="Dog Picture App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -1,4 +1,4 @@
-import 'package:dog_picture_app/hived.dart';
+import 'package:dog_picture_app/db/hiveGen.dart';
 import 'package:hive/hive.dart';
 
 class UrlListAdapter extends TypeAdapter<UrlList> {
