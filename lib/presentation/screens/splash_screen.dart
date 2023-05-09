@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dog_picture_app/components/color_manager.dart';
 import 'package:dog_picture_app/components/routes_manager.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
             const Padding(
               padding: EdgeInsets.only(top: 300),
               child: Text(
-                "Dog Picture App",
+                "Dog Pic App",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
               ),
             ),

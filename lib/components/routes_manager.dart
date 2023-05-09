@@ -1,5 +1,5 @@
-import 'package:dog_picture_app/screens/Homescreen.dart';
-import 'package:dog_picture_app/screens/splash_screen.dart';
+import 'package:dog_picture_app/presentation/screens/splash_screen.dart';
+import 'package:dog_picture_app/presentation/screens/Homescreen.dart';
 import 'package:flutter/material.dart';
 
 class Routes {

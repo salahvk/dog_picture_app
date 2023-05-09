@@ -8,6 +8,8 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
+final List<Dog> dogsBox = [];
+
 class DogService {
   static const _dogApiUrl = 'https://dog.ceo/api/breeds/image/random';
 
@@ -43,5 +45,12 @@ class DogService {
       return [];
     }
     return dogs;
+  }
+
+  static clearBox() async {
+    var box = Hive.box('urlList');
+    await box.clear();
+    getCachedDogs();
+    dogsBox.clear();
   }
 }

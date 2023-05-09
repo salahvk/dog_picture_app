@@ -1,4 +1,4 @@
-import 'package:dog_picture_app/models/dogModel.dart';
+import 'package:dog_picture_app/presentation/widget/diologue_box.dart';
 import 'package:dog_picture_app/services/dogservice.dart';
 import 'package:dog_picture_app/components/color_manager.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +11,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<Dog> _dogs = [];
-
   @override
   void initState() {
     super.initState();
@@ -23,14 +21,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _getCachedDogs() async {
     final dogs = await DogService.getCachedDogs();
     setState(() {
-      _dogs.addAll(dogs);
+      dogsBox.addAll(dogs);
     });
   }
 
   Future<void> _fetchDogs() async {
     final dogs = await DogService.fetchDogs();
     setState(() {
-      _dogs.addAll(dogs);
+      dogsBox.addAll(dogs);
     });
   }
 
@@ -41,30 +39,50 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text('Dog Images'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+                onTap: () async {
+                  final result = await showDialog(
+                      context: context,
+                      builder: (context) => const DeleteDiologueBox(),
+                      barrierDismissible: true);
+                  print(result);
+                  if (result != null && result == true) {
+                    setState(() {
+                      // update the state here
+                    });
+                  }
+                },
+                child: const Icon(Icons.delete)),
+          )
+        ],
         backgroundColor: ColorManager.primary,
       ),
       body: ListView.builder(
-        itemCount: _dogs.length,
+        itemCount: dogsBox.length,
         // reverse: true,
         itemBuilder: (context, index) {
-          final dog = _dogs[_dogs.length - 1 - index];
+          final dog = dogsBox[dogsBox.length - 1 - index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: SizedBox(
+                  height: 300,
                   child: Image.network(
-                dog.imageUrl,
-                fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  return loadingProgress == null
-                      ? child
-                      : Container(
-                          height: 300,
-                          color: ColorManager.primary,
-                        );
-                },
-              )),
+                    dog.imageUrl,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      return loadingProgress == null
+                          ? child
+                          : Container(
+                              height: 300,
+                              color: ColorManager.primary,
+                            );
+                    },
+                  )),
             ),
           );
         },
